@@ -21,44 +21,39 @@
       }
     }
 
-    body {
+    html, body {
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-    }
-
-    h1 {
-      margin-bottom: 20px;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
     }
 
     button {
       background-color: var(--btn-bg);
       border: none;
-      padding: 20px;
-      font-size: 24px;
+      width: 100vw;
+      height: 100vh;
+      font-size: 32px;
       color: white;
-      border-radius: 16px;
+      border-radius: 0;
       cursor: pointer;
-      width: 80vw;
-      max-width: 400px;
-      height: 100px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     button:hover {
       background-color: var(--btn-bg-hover);
+    }
+
+    h1, audio {
+      display: none;
     }
   </style>
 </head>
 <body>
   <h1>🎧 CJLO 1690 AM</h1>
   <audio id="player" src="https://streamingv2.shoutcast.com/cjlo-128k" preload="none"></audio>
-  <button onclick="document.getElementById('player').play()">▶️ Tap to Play</button>
+  <button onclick="document.getElementById('player').play()">▶️ Tap to Play CJLO</button>
 </body>
 </html>
