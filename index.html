@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CJLO Tap to Play</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    button {
+      background: #e63946;
+      border: none;
+      padding: 16px 24px;
+      font-size: 18px;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #d62828;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎧 CJLO 1690 AM</h1>
+  <audio id="player" src="https://streamingv2.shoutcast.com/cjlo-128k" preload="none"></audio>
+  <button onclick="document.getElementById('player').play()">▶️ Tap to Play</button>
+</body>
+</html>
