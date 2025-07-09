@@ -79,18 +79,30 @@
 
     #message {
       position: absolute;
-      bottom: 1rem;
+      bottom: 2.5rem;
       width: 100%;
       text-align: center;
       font-size: 1.25rem;
       color: var(--text-color);
       z-index: 2;
+      padding: 0 1rem;
     }
 
     #message a {
       color: var(--text-color);
       font-weight: bold;
       text-decoration: underline;
+    }
+
+    #disclaimer {
+      position: absolute;
+      bottom: 0.5rem;
+      width: 100%;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-color);
+      z-index: 2;
+      opacity: 0.7;
     }
 
     @keyframes pulse {
@@ -113,6 +125,7 @@
   </audio>
   <div id="play-area" onclick="toggleAudio()"><span id="btn-icon">▶️</span>&nbsp;<span id="btn-label">Tap to Play CJLO</span></div>
   <div id="message">🔇 CJLO is stopped</div>
+  <div id="disclaimer">This fan-made tool is in no way affiliated with CJLO or with the Concordia University.</div>
 
   <script>
     let isPlaying = false;
@@ -131,7 +144,7 @@
           label.textContent = 'Tap to Stop CJLO';
           message.textContent = '🔊 CJLO is now playing!';
         }).catch(err => {
-          message.innerHTML = '⚠️ Oh no! Greatness awaits at: <a href="http://www.cjlo.com/player.html" target="_blank">cjlo.com/player.html</a>';
+          message.innerHTML = '⚠️ Oh no! Sadly your device is not supported. Greatness awaits at: <a href="http://www.cjlo.com/player.html" target="_blank">cjlo.com/player.html</a>';
         });
       } else {
         player.pause();
