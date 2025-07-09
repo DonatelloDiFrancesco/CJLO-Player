@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CJLO Tap to Play</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
     :root {
       --bg-color: #0f2f1d;
       --text-color: #fff;
@@ -26,7 +28,7 @@
     html, body {
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
       padding: 0;
       height: 100%;
@@ -85,6 +87,12 @@
       z-index: 2;
     }
 
+    #message a {
+      color: var(--text-color);
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
     @keyframes pulse {
       0% { box-shadow: 0 0 20px var(--glow-color); }
       50% { box-shadow: 0 0 40px var(--glow-color); }
@@ -123,7 +131,7 @@
           label.textContent = 'Tap to Stop CJLO';
           message.textContent = '🔊 CJLO is now playing!';
         }).catch(err => {
-          message.textContent = '⚠️ Playback failed: ' + err.message;
+          message.innerHTML = '⚠️ Oh no! Greatness awaits at: <a href="http://www.cjlo.com/player.html" target="_blank">cjlo.com/player.html</a>';
         });
       } else {
         player.pause();
