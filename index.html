@@ -6,19 +6,19 @@
   <title>CJLO Tap to Play</title>
   <style>
     :root {
-      --bg-color: #111;
+      --bg-color: #0f2f1d;
       --text-color: #fff;
-      --btn-bg: #e63946;
-      --btn-bg-hover: #d62828;
-      --glow-color: rgba(255, 255, 255, 0.5);
+      --btn-bg: #2f593e;
+      --btn-bg-hover: #1e3a29;
+      --glow-color: rgba(140, 255, 173, 0.5);
     }
 
     @media (prefers-color-scheme: light) {
       :root {
-        --bg-color: #fff;
+        --bg-color: #e4f4eb;
         --text-color: #111;
-        --btn-bg: #007aff;
-        --btn-bg-hover: #005bbb;
+        --btn-bg: #5ca779;
+        --btn-bg-hover: #498a63;
         --glow-color: rgba(0, 0, 0, 0.2);
       }
     }
@@ -33,28 +33,32 @@
       overflow: hidden;
     }
 
-    body::before {
-      content: "";
+    #visualizer {
       position: absolute;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%), repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
-      animation: moveBackground 10s linear infinite;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://raw.githubusercontent.com/DonatelloDiFrancesco/CJLO-Player/main/ff0c8ae7-4a0b-47df-9105-7a950b82802c.png');
+      background-size: cover;
+      background-position: center;
       z-index: 0;
+      animation: pulse-bg 4s infinite;
     }
 
-    @keyframes moveBackground {
-      from { transform: translate(0, 0); }
-      to { transform: translate(-50px, -50px); }
+    @keyframes pulse-bg {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.03); opacity: 0.95; }
     }
 
     #play-area {
       position: relative;
+      z-index: 1;
       background-color: var(--btn-bg);
       border: none;
       width: 100vw;
       height: 100vh;
-      font-size: 32px;
+      font-size: 2.5rem;
       color: white;
       display: flex;
       justify-content: center;
@@ -64,7 +68,6 @@
       transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
       box-shadow: 0 0 20px var(--glow-color);
       animation: pulse 2s infinite;
-      z-index: 1;
     }
 
     #play-area:active {
@@ -74,27 +77,18 @@
 
     #message {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      color: var(--text-color);
+      bottom: 1rem;
+      width: 100%;
       text-align: center;
-      padding: 1rem;
-      opacity: 0.9;
+      font-size: 1.25rem;
+      color: var(--text-color);
       z-index: 2;
     }
 
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 20px var(--glow-color);
-      }
-      50% {
-        box-shadow: 0 0 40px var(--glow-color);
-      }
-      100% {
-        box-shadow: 0 0 20px var(--glow-color);
-      }
+      0% { box-shadow: 0 0 20px var(--glow-color); }
+      50% { box-shadow: 0 0 40px var(--glow-color); }
+      100% { box-shadow: 0 0 20px var(--glow-color); }
     }
 
     h1, audio {
@@ -103,14 +97,13 @@
   </style>
 </head>
 <body>
+  <div id="visualizer"></div>
   <h1>🎧 CJLO 1690 AM</h1>
   <audio id="player">
     <source src="https://streamingv2.shoutcast.com/cjlo-128k" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-  <div id="play-area" onclick="toggleAudio()">
-    <span id="icon">▶️</span> Tap to Play / Stop CJLO
-  </div>
+  <div id="play-area" onclick="toggleAudio()"><span id="btn-icon">▶️</span>&nbsp;<span id="btn-label">Tap to Play CJLO</span></div>
   <div id="message">🔇 CJLO is stopped</div>
 
   <script>
@@ -118,15 +111,17 @@
 
     function toggleAudio() {
       const player = document.getElementById('player');
+      const icon = document.getElementById('btn-icon');
+      const label = document.getElementById('btn-label');
       const message = document.getElementById('message');
-      const icon = document.getElementById('icon');
 
       if (!isPlaying) {
         player.src = "https://streamingv2.shoutcast.com/cjlo-128k";
         player.play().then(() => {
           isPlaying = true;
-          message.textContent = '🔊 CJLO is now playing!';
           icon.textContent = '⏹️';
+          label.textContent = 'Tap to Stop CJLO';
+          message.textContent = '🔊 CJLO is now playing!';
         }).catch(err => {
           message.textContent = '⚠️ Playback failed: ' + err.message;
         });
@@ -134,8 +129,9 @@
         player.pause();
         player.src = "";
         isPlaying = false;
-        message.textContent = '🔇 CJLO is stopped';
         icon.textContent = '▶️';
+        label.textContent = 'Tap to Play CJLO';
+        message.textContent = '🔇 CJLO is stopped';
       }
     }
   </script>
