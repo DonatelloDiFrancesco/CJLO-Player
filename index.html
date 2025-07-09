@@ -5,10 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CJLO Tap to Play</title>
   <style>
+    :root {
+      --bg-color: #111;
+      --text-color: #fff;
+      --btn-bg: #e63946;
+      --btn-bg-hover: #d62828;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-color: #fff;
+        --text-color: #111;
+        --btn-bg: #007aff;
+        --btn-bg-hover: #005bbb;
+      }
+    }
+
     body {
-      background: #111;
-      color: white;
-      font-family: sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -16,17 +32,27 @@
       height: 100vh;
       margin: 0;
     }
-    button {
-      background: #e63946;
-      border: none;
-      padding: 16px 24px;
-      font-size: 18px;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
+
+    h1 {
+      margin-bottom: 20px;
     }
+
+    button {
+      background-color: var(--btn-bg);
+      border: none;
+      padding: 20px;
+      font-size: 24px;
+      color: white;
+      border-radius: 16px;
+      cursor: pointer;
+      width: 80vw;
+      max-width: 400px;
+      height: 100px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
     button:hover {
-      background: #d62828;
+      background-color: var(--btn-bg-hover);
     }
   </style>
 </head>
