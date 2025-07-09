@@ -67,7 +67,7 @@
 </head>
 <body>
   <h1>🎧 CJLO 1690 AM</h1>
-  <audio id="player" preload="none">
+  <audio id="player">
     <source src="https://stream.cjlo.com/cjlo128.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -80,12 +80,19 @@
       const area = document.getElementById('play-area');
       const message = document.getElementById('message');
 
-      player.play().then(() => {
-        area.style.display = 'none';
-        message.style.display = 'block';
-      }).catch(err => {
-        alert("Playback failed: " + err.message);
-      });
+      // Reset the stream in case it was stuck
+      player.pause();
+      player.load();
+
+      // Give it a sec to get ready before trying to play
+      setTimeout(() => {
+        player.play().then(() => {
+          area.style.display = 'none';
+          message.style.display = 'block';
+        }).catch(err => {
+          alert("Playback failed: " + err.message);
+        });
+      }, 300);
     }
   </script>
 </body>
