@@ -58,6 +58,8 @@
       transform: translate(-50%, -50%);
       font-size: 24px;
       color: var(--text-color);
+      text-align: center;
+      padding: 1rem;
     }
 
     h1, audio {
@@ -72,7 +74,7 @@
     Your browser does not support the audio element.
   </audio>
   <div id="play-area" onclick="playAudio()">▶️ Tap anywhere to play CJLO</div>
-  <div id="message">🔊 CJLO is now playing!</div>
+  <div id="message"></div>
 
   <script>
     function playAudio() {
@@ -80,19 +82,14 @@
       const area = document.getElementById('play-area');
       const message = document.getElementById('message');
 
-      // Reset the stream in case it was stuck
-      player.pause();
-      player.load();
-
-      // Give it a sec to get ready before trying to play
-      setTimeout(() => {
-        player.play().then(() => {
-          area.style.display = 'none';
-          message.style.display = 'block';
-        }).catch(err => {
-          alert("Playback failed: " + err.message);
-        });
-      }, 300);
+      player.play().then(() => {
+        area.style.display = 'none';
+        message.style.display = 'block';
+        message.textContent = '🔊 CJLO is now playing!';
+      }).catch(err => {
+        message.style.display = 'block';
+        message.textContent = '⚠️ Playback failed: ' + err.message;
+      });
     }
   </script>
 </body>
