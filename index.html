@@ -31,19 +31,33 @@
       overflow: hidden;
     }
 
-    button {
+    #play-area {
       background-color: var(--btn-bg);
       border: none;
       width: 100vw;
       height: 100vh;
       font-size: 32px;
       color: white;
-      border-radius: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s;
     }
 
-    button:hover {
+    #play-area:active {
       background-color: var(--btn-bg-hover);
+    }
+
+    #message {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: var(--text-color);
     }
 
     h1, audio {
@@ -54,6 +68,22 @@
 <body>
   <h1>🎧 CJLO 1690 AM</h1>
   <audio id="player" src="https://streamingv2.shoutcast.com/cjlo-128k" preload="none"></audio>
-  <button onclick="document.getElementById('player').play()">▶️ Tap to Play CJLO</button>
+  <div id="play-area" onclick="playAudio()">▶️ Tap anywhere to play CJLO</div>
+  <div id="message">🔊 CJLO is now playing!</div>
+
+  <script>
+    function playAudio() {
+      const player = document.getElementById('player');
+      const area = document.getElementById('play-area');
+      const message = document.getElementById('message');
+
+      player.play().then(() => {
+        area.style.display = 'none';
+        message.style.display = 'block';
+      }).catch(err => {
+        alert("Playback failed: " + err.message);
+      });
+    }
+  </script>
 </body>
 </html>
