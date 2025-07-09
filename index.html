@@ -10,6 +10,7 @@
       --text-color: #fff;
       --btn-bg: #e63946;
       --btn-bg-hover: #d62828;
+      --glow-color: rgba(255, 255, 255, 0.5);
     }
 
     @media (prefers-color-scheme: light) {
@@ -18,6 +19,7 @@
         --text-color: #111;
         --btn-bg: #007aff;
         --btn-bg-hover: #005bbb;
+        --glow-color: rgba(0, 0, 0, 0.2);
       }
     }
 
@@ -43,15 +45,17 @@
       align-items: center;
       cursor: pointer;
       text-align: center;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      box-shadow: 0 0 20px var(--glow-color);
+      animation: pulse 2s infinite;
     }
 
     #play-area:active {
       background-color: var(--btn-bg-hover);
+      transform: scale(0.98);
     }
 
     #message {
-      display: none;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -60,6 +64,19 @@
       color: var(--text-color);
       text-align: center;
       padding: 1rem;
+      opacity: 0.9;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 20px var(--glow-color);
+      }
+      50% {
+        box-shadow: 0 0 40px var(--glow-color);
+      }
+      100% {
+        box-shadow: 0 0 20px var(--glow-color);
+      }
     }
 
     h1, audio {
@@ -73,23 +90,31 @@
     <source src="https://streamingv2.shoutcast.com/cjlo-128k" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-  <div id="play-area" onclick="playAudio()">▶️ Tap anywhere to play CJLO</div>
-  <div id="message"></div>
+  <div id="play-area" onclick="toggleAudio()">▶️ Tap to Play / Stop CJLO</div>
+  <div id="message">🔇 CJLO is stopped</div>
 
   <script>
-    function playAudio() {
+    let isPlaying = false;
+
+    function toggleAudio() {
       const player = document.getElementById('player');
       const area = document.getElementById('play-area');
       const message = document.getElementById('message');
 
-      player.play().then(() => {
-        area.style.display = 'none';
-        message.style.display = 'block';
-        message.textContent = '🔊 CJLO is now playing!';
-      }).catch(err => {
-        message.style.display = 'block';
-        message.textContent = '⚠️ Playback failed: ' + err.message;
-      });
+      if (!isPlaying) {
+        player.src = "https://streamingv2.shoutcast.com/cjlo-128k";
+        player.play().then(() => {
+          isPlaying = true;
+          message.textContent = '🔊 CJLO is now playing!';
+        }).catch(err => {
+          message.textContent = '⚠️ Playback failed: ' + err.message;
+        });
+      } else {
+        player.pause();
+        player.src = "";
+        isPlaying = false;
+        message.textContent = '🔇 CJLO is stopped';
+      }
     }
   </script>
 </body>
