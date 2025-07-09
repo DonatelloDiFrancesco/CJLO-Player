@@ -1,96 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CJLO Tap to Play</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CJLO Stream</title>
   <style>
-    :root {
-      --bg-color: #111;
-      --text-color: #fff;
-      --btn-bg: #e63946;
-      --btn-bg-hover: #d62828;
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg-color: #fff;
-        --text-color: #111;
-        --btn-bg: #007aff;
-        --btn-bg-hover: #005bbb;
-      }
-    }
-
     html, body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      background-color: black;
     }
-
-    #play-area {
-      background-color: var(--btn-bg);
-      border: none;
+    iframe {
       width: 100vw;
       height: 100vh;
-      font-size: 32px;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      text-align: center;
-      transition: background-color 0.3s;
-    }
-
-    #play-area:active {
-      background-color: var(--btn-bg-hover);
-    }
-
-    #message {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      color: var(--text-color);
-      text-align: center;
-      padding: 1rem;
-    }
-
-    h1, audio {
-      display: none;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <h1>🎧 CJLO 1690 AM</h1>
-  <audio id="player">
-    <source src="https://stream.cjlo.com/cjlo128.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <div id="play-area" onclick="playAudio()">▶️ Tap anywhere to play CJLO</div>
-  <div id="message"></div>
-
-  <script>
-    function playAudio() {
-      const player = document.getElementById('player');
-      const area = document.getElementById('play-area');
-      const message = document.getElementById('message');
-
-      player.play().then(() => {
-        area.style.display = 'none';
-        message.style.display = 'block';
-        message.textContent = '🔊 CJLO is now playing!';
-      }).catch(err => {
-        message.style.display = 'block';
-        message.textContent = '⚠️ Playback failed: ' + err.message;
-      });
-    }
-  </script>
+  <iframe src="https://www.cjlo.com/player.html" allow="autoplay"></iframe>
 </body>
 </html>
